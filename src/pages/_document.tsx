@@ -14,6 +14,7 @@ const Document: FC = (): ReactNode => {
     return (
         <Html lang='en'>
             <Head>
+                <link rel='icon' href='/favicon.png' type='image/png' />
                 <link rel='icon' href='/favicon.ico' sizes='any' />
                 <link rel='apple-touch-icon' href='/apple-touch-icon.png' />
                 <meta name='theme-color' content='#0e1211' media='(prefers-color-scheme: dark)' />
