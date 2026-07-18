@@ -30,7 +30,7 @@ export const ACHIEVEMENTS: Array<{ name: string; tier: string; blurb: string }> 
 
 /** Featured project slugs (pinned + most-starred), in display order. */
 export const FEATURED_SLUGS: Array<string> = [
-    'fm-radio',
+    'claudio',
     'zeroqcm',
     'forge',
     'serve',
@@ -40,6 +40,7 @@ export const FEATURED_SLUGS: Array<string> = [
 
 /** Known live homepages (used when the API homepage field is empty). */
 export const KNOWN_HOMEPAGES: Record<string, string> = {
+    claudio: 'http://51.170.130.44:8080/',
     forge: 'https://forge-app-peach.vercel.app',
     zeroqcm: 'https://zeroqcm.me',
     'huroof-abdo': 'https://huroof-abdo.vercel.app'
@@ -74,7 +75,7 @@ const RAW: Array<SeedRaw> = [
     { id: 1009, name: 'knight-agent', description: 'Autonomous agent runtime — KNIGHT edition', htmlUrl: 'https://github.com/knightabdo/knight-agent', homepage: null, language: 'TypeScript', stars: 1, forks: 0, watchers: 1, openIssues: 0, isFork: false, archived: false, topics: ['ai', 'agent'], createdAt: '2026-06-30', updatedAt: '2026-07-10', pushedAt: '2026-07-10' },
     { id: 1010, name: 'knight-bench', description: 'Benchmark harness for LLMs and coding agents', htmlUrl: 'https://github.com/knightabdo/knight-bench', homepage: null, language: 'TypeScript', stars: 1, forks: 0, watchers: 1, openIssues: 0, isFork: false, archived: false, topics: ['ai', 'benchmark', 'llm'], createdAt: '2026-06-28', updatedAt: '2026-07-10', pushedAt: '2026-07-10' },
     { id: 1011, name: 'MedWork', description: 'Clinical workflow tooling for medical students', htmlUrl: 'https://github.com/knightabdo/MedWork', homepage: null, language: 'TypeScript', stars: 1, forks: 0, watchers: 1, openIssues: 0, isFork: false, archived: false, topics: ['medical'], createdAt: '2026-06-25', updatedAt: '2026-07-05', pushedAt: '2026-07-05' },
-    { id: 1012, name: 'claudio', description: 'The cinematic AI voice engine behind fm-radio', htmlUrl: 'https://github.com/knightabdo/claudio', homepage: null, language: 'JavaScript', stars: 1, forks: 0, watchers: 1, openIssues: 0, isFork: false, archived: false, topics: ['ai', 'tts', 'voice'], createdAt: '2026-06-20', updatedAt: '2026-07-04', pushedAt: '2026-07-04' },
+    { id: 1012, name: 'claudio', description: 'A personal radio station hosted by Claudio, an AI DJ.', htmlUrl: 'https://github.com/knightabdo/claudio', homepage: 'http://51.170.130.44:8080/', language: 'JavaScript', stars: 1, forks: 0, watchers: 1, openIssues: 0, isFork: false, archived: false, topics: ['ai', 'tts', 'voice'], createdAt: '2026-06-20', updatedAt: '2026-07-04', pushedAt: '2026-07-04' },
     { id: 1013, name: 'forge-apps', description: 'Storage layer for FORGE-generated tools — each tool is an HTML file', htmlUrl: 'https://github.com/knightabdo/forge-apps', homepage: null, language: 'HTML', stars: 1, forks: 0, watchers: 1, openIssues: 0, isFork: false, archived: false, topics: ['ai', 'storage'], createdAt: '2026-06-10', updatedAt: '2026-06-30', pushedAt: '2026-06-30' },
     { id: 1014, name: 'forge-desktop-v2', description: 'Autonomous AI coding agent desktop app — full agent loop with authenticated sync', htmlUrl: 'https://github.com/knightabdo/forge-desktop-v2', homepage: null, language: 'TypeScript', stars: 1, forks: 0, watchers: 1, openIssues: 0, isFork: false, archived: false, topics: ['ai', 'agent', 'tauri'], createdAt: '2026-06-05', updatedAt: '2026-06-27', pushedAt: '2026-06-27' },
     { id: 1015, name: 'vault', description: 'Vault — your personal AI that remembers everything and understands you', htmlUrl: 'https://github.com/knightabdo/vault', homepage: null, language: 'TypeScript', stars: 1, forks: 0, watchers: 1, openIssues: 0, isFork: false, archived: false, topics: ['ai', 'memory'], createdAt: '2026-05-20', updatedAt: '2026-06-18', pushedAt: '2026-06-18' },

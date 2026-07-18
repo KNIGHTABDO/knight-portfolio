@@ -1,12 +1,12 @@
 export const brand = {
     colors: {
-        primary: '#FE3200',
-        accent: '#FC8C04',
-        light: '#FCDBAF',
-        surface: '#FFF4E6',
-        text: '#0a0a0a',
-        muted: '#9ca3af'
+        primary: '#07132C',
+        accent: '#F6C64E',
+        light: '#E8E0C9',
+        surface: '#030817',
+        text: '#E8E0C9',
+        muted: '#9FB7D9'
     },
-    name: 'Modulify',
-    tagline: 'Where great things are built.'
+    name: 'KNIGHT',
+    tagline: 'Vibe coder. System thinker. Med student.'
 }

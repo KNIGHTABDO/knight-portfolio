@@ -40,8 +40,8 @@ const applyMode = (mode: ThemeMode): void => {
 }
 
 export const ThemeProvider: FC<{ children: ReactNode }> = ({ children }) => {
-    const [mode, setModeState] = useState<ThemeMode>('system')
-    const [resolved, setResolved] = useState<Resolved>('dark')
+    const [mode, setModeState] = useState<ThemeMode>('light')
+    const [resolved, setResolved] = useState<Resolved>('light')
     const [mounted, setMounted] = useState(false)
 
     useEffect(() => {
@@ -52,7 +52,7 @@ export const ThemeProvider: FC<{ children: ReactNode }> = ({ children }) => {
         const initial: ThemeMode =
             stored === 'light' || stored === 'dark' || stored === 'system'
                 ? stored
-                : 'system'
+                : 'light'
 
         setModeState(initial)
         setResolved(initial === 'system' ? (systemPrefersDark() ? 'dark' : 'light') : initial)

@@ -1,5 +1,6 @@
 import type { FC, ReactNode } from 'react'
 import type { GetStaticProps } from 'next'
+import { useEffect, useState } from 'react'
 import type { ContribData, GithubOverview } from '@/types/github'
 
 import { getContributions, getOverview } from '@/lib/github'
@@ -18,6 +19,10 @@ import { Activity } from '@/components/portfolio/activity'
 import { Connect } from '@/components/portfolio/connect'
 import { SiteFooter } from '@/components/portfolio/site-footer'
 
+// Phase 2 components
+import { Fireflies } from '@/components/portfolio/fireflies'
+import { Console } from '@/components/portfolio/console'
+
 interface HomeProps {
     overview?: GithubOverview
     contributions?: ContribData | null
@@ -26,6 +31,15 @@ interface HomeProps {
 const Home: FC<HomeProps> = ({ overview: initialOverview, contributions: initialContrib }): ReactNode => {
     const { overview, refreshing, refresh } = useLiveOverview(initialOverview)
     const { data: contributions, loading: contribLoading } = useContributions(initialContrib ?? null)
+    const [isConsoleOpen, setIsConsoleOpen] = useState(false)
+
+    useEffect(() => {
+        const handleOpenConsole = () => {
+            setIsConsoleOpen(true)
+        }
+        window.addEventListener('knight-open-console', handleOpenConsole)
+        return () => window.removeEventListener('knight-open-console', handleOpenConsole)
+    }, [])
 
     return (
         <>
@@ -33,6 +47,9 @@ const Home: FC<HomeProps> = ({ overview: initialOverview, contributions: initial
             <StructuredData />
             <ScrollProgress />
             <DockNav />
+
+            {/* Retro Pixel Atmosphere Background Particles */}
+            <Fireflies />
 
             <main>
                 <Hero overview={overview} />
@@ -52,6 +69,9 @@ const Home: FC<HomeProps> = ({ overview: initialOverview, contributions: initial
             </main>
 
             <SiteFooter />
+
+            {/* Secret Command Console Overlay */}
+            <Console isOpen={isConsoleOpen} onClose={() => setIsConsoleOpen(false)} />
         </>
     )
 }

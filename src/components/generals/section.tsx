@@ -37,7 +37,7 @@ export const Section = ({ children, id, className, size = 'default' }: SectionPr
 )
 
 interface SectionHeadingProps {
-    eyebrow: string
+    eyebrow?: string
     title: ReactNode
     description?: ReactNode
     align?: 'left' | 'center'
@@ -53,14 +53,16 @@ export const SectionHeading = ({
 }: SectionHeadingProps) => (
     <Reveal
         className={cn(
-            'flex flex-col gap-4',
+            'flex flex-col gap-3',
             align === 'center' && 'items-center text-center',
             className
         )}
     >
-        <span className='gx-chip gx-chip-accent w-fit font-mono uppercase tracking-[0.18em]'>
-            {eyebrow}
-        </span>
+        {eyebrow && (
+            <span className='gx-chip gx-chip-accent w-fit font-mono uppercase tracking-[0.18em]'>
+                {eyebrow}
+            </span>
+        )}
         <h2 className='font-display text-3xl font-bold leading-[1.05] tracking-tight text-ink sm:text-[2.75rem]'>
             {title}
         </h2>

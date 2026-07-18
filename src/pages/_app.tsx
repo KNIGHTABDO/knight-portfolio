@@ -3,15 +3,15 @@ import '@/styles/globals.css'
 import type { FC, ReactNode } from 'react'
 import type { AppProps } from 'next/app'
 
-import { Bricolage_Grotesque, Geist, JetBrains_Mono } from 'next/font/google'
+import { Cormorant_Garamond, Geist, JetBrains_Mono, Silkscreen } from 'next/font/google'
 
 import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/hooks/use-theme'
 
-const display = Bricolage_Grotesque({
+const display = Cormorant_Garamond({
     variable: '--font-display',
     subsets: ['latin'],
-    weight: ['400', '500', '600', '700', '800'],
+    weight: ['300', '400', '500', '600', '700'],
     display: 'swap'
 })
 
@@ -28,10 +28,17 @@ const mono = JetBrains_Mono({
     display: 'swap'
 })
 
+const pixel = Silkscreen({
+    variable: '--font-pixel',
+    subsets: ['latin'],
+    weight: ['400'],
+    display: 'swap'
+})
+
 const App: FC<AppProps> = ({ Component, pageProps }): ReactNode => {
     return (
         <ThemeProvider>
-            <div className={cn(display.variable, body.variable, mono.variable, 'font-sans antialiased')}>
+            <div className={cn(display.variable, body.variable, mono.variable, pixel.variable, 'font-sans antialiased')}>
                 <Component {...pageProps} />
             </div>
         </ThemeProvider>
