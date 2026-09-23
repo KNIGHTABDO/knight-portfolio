@@ -157,6 +157,17 @@ const raw = await getObjectText('submissions/123.json')
 - **Caching is automatic.** CDN objects are cached hard at the edge, but every write, overwrite, move, and delete transparently purges that object's cache, so the next fetch always returns the latest bytes. Never append cache-busting query strings (`?v=123`), just reuse the same key to update a file in place. Only when many pages hardcode an asset that must stay byte-stable for a long time (a downloadable release, a pinned dataset) should you write a new versioned key instead of overwriting.
 - **Naming.** Organize under clear prefixes (`images/`, `uploads/`, `data/`), keep keys lowercase and hyphenated with no spaces, and name objects by their content rather than a timestamp so URLs stay stable and clean.
 
+## Design system — "the sketchbook"
+
+The site is a hand-drawn sketchbook: warm paper, graphite, and fluorescent riso inks. Keep new work in that language.
+
+- **Tokens** live in `globals.css` (`--paper`, `--graphite*`, `--rule*`, riso `--pink --blue --yellow --navy --green --orange`). Use them via Tailwind (`bg-paper`, `text-graphite-soft`, `text-pink`, `border-rule`). Night mode is `:root[data-theme='night']`, toggled by the pull-cord lamp (`useTheme` → `'paper' | 'night'`).
+- **Fonts:** `font-display` (Instrument Serif, headings), `font-serif` (Newsreader, body), `font-hand` (Caveat, annotations), `font-mono` (JetBrains Mono, labels), `font-arabic` (Aref Ruqaa).
+- **Marks:** never hand-write SVG squiggles. Use `@/components/sketch/*` — `SketchBox` (pencil frame), `Mark` (circle/underline a word), `HandArrow`, `Tape`, `Reveal` (appears on twos), `Doodle` (live canvas drawing). Geometry comes from `@/lib/sketch` (seeded, deterministic) and canvas marks from `@/lib/pencil`.
+- **Motion:** hand-drawn motion is stepped. Doodles draw at 12 fps; hovered marks "boil" between three fixed redraws (`boil-hover` on an ancestor). Randomness must be seeded — no `Math.random` in marks.
+- **Hero film:** `film/` holds the source of the hero loop (hand-drawn-canvas-animation skill). It is drawn on white and composited with `mix-blend-mode: multiply` (screen + invert at night). See `film/README.md` to re-render into `public/film/`.
+- **Content:** project copy, nav and the ledger are in `@/constants/content.ts`; GitHub data comes live through `@/lib/github` and the `/api/github/*` routes.
+
 ## Styling
 
 - Tailwind utilities for everything.

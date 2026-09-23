@@ -15,7 +15,7 @@ export const StructuredData = () => {
                 url: GITHUB.profileUrl,
                 image: GITHUB.avatarFallback,
                 description:
-                    'Moroccan medical student and self-taught vibe coder building AI agents, med-tech and Arabic-first apps.',
+                    'Second-year medical student at FMPC in Casablanca who builds AI tools, med-tech and Arabic-first apps.',
                 jobTitle: 'Software builder & medical student',
                 address: {
                     '@type': 'PostalAddress',

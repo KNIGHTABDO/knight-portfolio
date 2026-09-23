@@ -9,96 +9,55 @@ import {
     useState
 } from 'react'
 
-type ThemeMode = 'system' | 'light' | 'dark'
-type Resolved = 'light' | 'dark'
+export type Theme = 'paper' | 'night'
 
 interface ThemeContextValue {
-    mode: ThemeMode
-    resolved: Resolved
+    theme: Theme
     mounted: boolean
-    setMode: (mode: ThemeMode) => void
+    setTheme: (theme: Theme) => void
     toggle: () => void
 }
 
-const STORAGE_KEY = 'knight-theme'
+export const THEME_STORAGE_KEY = 'knight-theme'
 
 const ThemeContext = createContext<ThemeContextValue | null>(null)
 
-const systemPrefersDark = (): boolean =>
-    typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-color-scheme: dark)').matches
-
-const applyMode = (mode: ThemeMode): void => {
+const apply = (theme: Theme): void => {
     const root = document.documentElement
-
-    if (mode === 'system') {
-        root.removeAttribute('data-theme')
-        return
-    }
-
-    root.setAttribute('data-theme', mode)
+    if (theme === 'night') root.setAttribute('data-theme', 'night')
+    else root.removeAttribute('data-theme')
+    window.dispatchEvent(new CustomEvent('knight-theme', { detail: theme }))
 }
 
 export const ThemeProvider: FC<{ children: ReactNode }> = ({ children }) => {
-    const [mode, setModeState] = useState<ThemeMode>('light')
-    const [resolved, setResolved] = useState<Resolved>('light')
+    const [theme, setThemeState] = useState<Theme>('paper')
     const [mounted, setMounted] = useState(false)
 
     useEffect(() => {
-        const stored = (typeof localStorage !== 'undefined'
-            ? localStorage.getItem(STORAGE_KEY)
-            : null) as ThemeMode | null
-
-        const initial: ThemeMode =
-            stored === 'light' || stored === 'dark' || stored === 'system'
-                ? stored
-                : 'light'
-
-        setModeState(initial)
-        setResolved(initial === 'system' ? (systemPrefersDark() ? 'dark' : 'light') : initial)
+        // _document's boot script already chose; read it back
+        setThemeState(document.documentElement.dataset.theme === 'night' ? 'night' : 'paper')
         setMounted(true)
     }, [])
 
-    useEffect(() => {
-        if (!mounted) return
-
-        applyMode(mode)
-        setResolved(mode === 'system' ? (systemPrefersDark() ? 'dark' : 'light') : mode)
-
-        const media = window.matchMedia('(prefers-color-scheme: dark)')
-        const onChange = () => {
-            if (mode === 'system') setResolved(media.matches ? 'dark' : 'light')
-        }
-
-        media.addEventListener('change', onChange)
-        return () => media.removeEventListener('change', onChange)
-    }, [mode, mounted])
-
-    const setMode = useCallback((next: ThemeMode) => {
-        setModeState(next)
+    const setTheme = useCallback((next: Theme) => {
+        setThemeState(next)
+        apply(next)
         try {
-            localStorage.setItem(STORAGE_KEY, next)
+            localStorage.setItem(THEME_STORAGE_KEY, next)
         } catch {
-            /* ignore private-mode storage errors */
+            /* private mode: the lamp still works for this visit */
         }
     }, [])
 
-    const toggle = useCallback(() => {
-        setMode(resolved === 'dark' ? 'light' : 'dark')
-    }, [resolved, setMode])
+    const toggle = useCallback(() => setTheme(theme === 'night' ? 'paper' : 'night'), [theme, setTheme])
 
-    const value = useMemo(
-        () => ({ mode, resolved, mounted, setMode, toggle }),
-        [mode, resolved, mounted, setMode, toggle]
-    )
+    const value = useMemo(() => ({ theme, mounted, setTheme, toggle }), [theme, mounted, setTheme, toggle])
 
     return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }
 
 export const useTheme = (): ThemeContextValue => {
     const ctx = useContext(ThemeContext)
-
     if (!ctx) throw new Error('useTheme must be used within a ThemeProvider')
-
     return ctx
 }
