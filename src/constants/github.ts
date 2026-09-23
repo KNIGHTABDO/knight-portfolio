@@ -11,31 +11,11 @@ export const GITHUB = {
     location: 'Morocco'
 }
 
-/** Rotating identity line under the hero name. */
-export const IDENTITIES: Array<string> = [
-    'vibe coder',
-    'AI agent builder',
-    '2nd-year med student · FMPC 🇲🇦',
-    'tester of every LLM',
-    'shipper of 89 repos',
-    'open-source maker'
-]
-
 /** GitHub achievement badges shown on the profile. */
 export const ACHIEVEMENTS: Array<{ name: string; tier: string; blurb: string }> = [
     { name: 'Pull Shark', tier: '×2', blurb: 'Opened merged pull requests' },
     { name: 'Pair Extraordinaire', tier: '×2', blurb: 'Co-authored merged commits' },
     { name: 'YOLO', tier: '', blurb: 'Merged without review' }
-]
-
-/** Featured project slugs (pinned + most-starred), in display order. */
-export const FEATURED_SLUGS: Array<string> = [
-    'claudio',
-    'zeroqcm',
-    'forge',
-    'serve',
-    'huroof-ABDO',
-    'relearn'
 ]
 
 /** Known live homepages (used when the API homepage field is empty). */

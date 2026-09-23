@@ -19,7 +19,7 @@ export const Seo: FC<SeoProps> = ({
             <meta name='description' content={description} />
             <meta
                 name='keywords'
-                content='KNIGHT, knightabdo, GitHub portfolio, AI agents, LLM, vibe coder, medical student, Morocco, Next.js, TypeScript, ZeroQCM'
+                content='KNIGHT, knightabdo, Abdo, portfolio, medical student, FMPC, Casablanca, Morocco, AI tools, LLM, agents, ZeroQCM, FORGE, Claudio, Huroof, Next.js, TypeScript'
             />
             <meta name='author' content='KNIGHT' />
             <meta name='robots' content='index, follow' />
@@ -28,6 +28,8 @@ export const Seo: FC<SeoProps> = ({
             <meta property='og:title' content={pageTitle} />
             <meta property='og:description' content={description} />
             <meta property='og:type' content='profile' />
+            <meta property='og:image:width' content='1200' />
+            <meta property='og:image:height' content='630' />
             {siteConfig.url && <meta property='og:url' content={siteConfig.url} />}
             {ogImage && <meta property='og:image' content={ogImage} />}
 

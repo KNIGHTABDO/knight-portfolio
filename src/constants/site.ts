@@ -1,12 +1,13 @@
 import type { SiteConfig } from '@/types'
+
 import { getOrigin } from '@/lib/window'
 
 export const siteConfig: SiteConfig = {
-    name: 'KNIGHT — Live GitHub Portfolio',
+    name: 'KNIGHT — a med student who builds',
     description:
-        'The living portfolio of KNIGHT (knightabdo): a Moroccan med student and vibe coder shipping AI agents, med-tech and Arabic-first apps. 89 repos, streamed live from GitHub.',
+        'The sketchbook of KNIGHT (knightabdo): a second-year medical student in Casablanca who builds AI tools, med-tech and Arabic-first apps by night. 89 repositories, drawn live from GitHub.',
     url: getOrigin(),
-    ogImage: '/og-image.png',
+    ogImage: '/og-image.jpg',
     links: {
         github: 'https://github.com/knightabdo'
     }

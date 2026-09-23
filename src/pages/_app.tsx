@@ -3,42 +3,56 @@ import '@/styles/globals.css'
 import type { FC, ReactNode } from 'react'
 import type { AppProps } from 'next/app'
 
-import { Cormorant_Garamond, Geist, JetBrains_Mono, Silkscreen } from 'next/font/google'
+import {
+    Aref_Ruqaa,
+    Caveat,
+    Instrument_Serif,
+    JetBrains_Mono,
+    Newsreader
+} from 'next/font/google'
 
 import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/hooks/use-theme'
 
-const display = Cormorant_Garamond({
-    variable: '--font-display',
+const display = Instrument_Serif({
+    variable: '--font-instrument',
     subsets: ['latin'],
-    weight: ['300', '400', '500', '600', '700'],
+    weight: '400',
+    style: ['normal', 'italic'],
     display: 'swap'
 })
 
-const body = Geist({
-    variable: '--font-body',
+const serif = Newsreader({
+    variable: '--font-newsreader',
+    subsets: ['latin'],
+    style: ['normal', 'italic'],
+    display: 'swap'
+})
+
+const hand = Caveat({
+    variable: '--font-caveat',
     subsets: ['latin'],
     display: 'swap'
 })
 
 const mono = JetBrains_Mono({
-    variable: '--font-mono-code',
+    variable: '--font-jetbrains',
     subsets: ['latin'],
-    weight: ['400', '500', '600', '700'],
+    weight: ['400', '500'],
     display: 'swap'
 })
 
-const pixel = Silkscreen({
-    variable: '--font-pixel',
-    subsets: ['latin'],
-    weight: ['400'],
+const arabic = Aref_Ruqaa({
+    variable: '--font-ruqaa',
+    subsets: ['arabic'],
+    weight: ['400', '700'],
     display: 'swap'
 })
 
 const App: FC<AppProps> = ({ Component, pageProps }): ReactNode => {
     return (
         <ThemeProvider>
-            <div className={cn(display.variable, body.variable, mono.variable, pixel.variable, 'font-sans antialiased')}>
+            <div className={cn(display.variable, serif.variable, hand.variable, mono.variable, arabic.variable, 'font-serif')}>
                 <Component {...pageProps} />
             </div>
         </ThemeProvider>

@@ -1,27 +1,21 @@
 import type { FC, ReactNode } from 'react'
 import type { GetStaticProps } from 'next'
-import { useEffect, useState } from 'react'
 import type { ContribData, GithubOverview } from '@/types/github'
 
 import { getContributions, getOverview } from '@/lib/github'
-import { useLiveOverview, useContributions } from '@/hooks/use-live-github'
+import { useActivity, useContributions, useLiveOverview } from '@/hooks/use-live-github'
+
 import { Seo } from '@/components/generals/seo'
 import { StructuredData } from '@/components/generals/structured-data'
-import { DockNav } from '@/components/portfolio/dock-nav'
-import { ScrollProgress } from '@/components/portfolio/scroll-progress'
-import { Hero } from '@/components/portfolio/hero'
-import { About } from '@/components/portfolio/about'
-import { Stats } from '@/components/portfolio/stats'
-import { Featured } from '@/components/portfolio/featured'
-import { Builds } from '@/components/portfolio/builds'
-import { Arsenal } from '@/components/portfolio/arsenal'
-import { Activity } from '@/components/portfolio/activity'
-import { Connect } from '@/components/portfolio/connect'
-import { SiteFooter } from '@/components/portfolio/site-footer'
 
-// Phase 2 components
-import { Fireflies } from '@/components/portfolio/fireflies'
-import { Console } from '@/components/portfolio/console'
+import About from '@/components/landing/about'
+import Contact from '@/components/landing/contact'
+import Footer from '@/components/landing/footer'
+import Hero from '@/components/landing/hero'
+import Pulse from '@/components/landing/pulse'
+import Shelf from '@/components/landing/shelf'
+import TopBar from '@/components/landing/top-bar'
+import Work from '@/components/landing/work'
 
 interface HomeProps {
     overview?: GithubOverview
@@ -31,47 +25,25 @@ interface HomeProps {
 const Home: FC<HomeProps> = ({ overview: initialOverview, contributions: initialContrib }): ReactNode => {
     const { overview, refreshing, refresh } = useLiveOverview(initialOverview)
     const { data: contributions, loading: contribLoading } = useContributions(initialContrib ?? null)
-    const [isConsoleOpen, setIsConsoleOpen] = useState(false)
-
-    useEffect(() => {
-        const handleOpenConsole = () => {
-            setIsConsoleOpen(true)
-        }
-        window.addEventListener('knight-open-console', handleOpenConsole)
-        return () => window.removeEventListener('knight-open-console', handleOpenConsole)
-    }, [])
+    const { events, loading: eventsLoading } = useActivity()
 
     return (
         <>
             <Seo />
             <StructuredData />
-            <ScrollProgress />
-            <DockNav />
-
-            {/* Retro Pixel Atmosphere Background Particles */}
-            <Fireflies />
-
-            <main>
-                <Hero overview={overview} />
+            <a href='#main' className='sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-paper focus:px-4 focus:py-2 focus:font-hand focus:text-xl'>
+                skip to the sketchbook
+            </a>
+            <TopBar />
+            <main id='main'>
+                <Hero profile={overview.profile} />
                 <About profile={overview.profile} />
-                <Stats
-                    overview={overview}
-                    contributions={contributions}
-                    contributionsLoading={contribLoading}
-                    refreshing={refreshing}
-                    onRefresh={refresh}
-                />
-                <Featured repos={overview.repos} />
-                <Builds repos={overview.repos} />
-                <Arsenal repos={overview.repos} refreshing={refreshing} />
-                <Activity />
-                <Connect profile={overview.profile} />
+                <Work repos={overview.repos} profile={overview.profile} />
+                <Shelf overview={overview} refreshing={refreshing} onRefresh={refresh} />
+                <Pulse overview={overview} contributions={contributions} contributionsLoading={contribLoading} events={events} eventsLoading={eventsLoading} />
+                <Contact profile={overview.profile} />
             </main>
-
-            <SiteFooter />
-
-            {/* Secret Command Console Overlay */}
-            <Console isOpen={isConsoleOpen} onClose={() => setIsConsoleOpen(false)} />
+            <Footer />
         </>
     )
 }
